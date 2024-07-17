@@ -1,0 +1,7 @@
+-Implement post message functionality
+-Add join club route (and perk?) with form for secret word
+-Add account info to nav (username, membership)
+-hover over membership show square of information about memberships
+-implement different memberships authorizations and views
+-style
+-ship

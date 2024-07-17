@@ -5,13 +5,13 @@
 		<%- include('partials/nav', {user}) %>
 		<main>
 			<h1>Post message</h1>
-			<form action="">
-				<label for="">Title: </label>
-				<input type="text" />
-				<label for="">Message</label>
-				<textarea></textarea>
+			<form action="/post" method="POST">
+				<label for="title">Title: </label>
+				<input type="text" name="title" required />
+				<label for="body">Message: </label>
+				<textarea name="body" required></textarea>
 
-				<button type="submit">Log in</button>
+				<button type="submit">Post message</button>
 			</form>
 		</main>
 	</body>
