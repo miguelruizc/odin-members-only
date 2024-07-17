@@ -2,9 +2,13 @@
 	<h2><a href="/">OnlyMembers</a></h2>
 	<ul>
 		<!-- TODO: show different links based on membership -->
+		<% if(user) { %>
+		<li>(<%= user.username %>)</li>
+		<li><a href="/logout">Logout</a></li>
+		<% } else { %>
 		<li><a href="/login">Log in</a></li>
 		<li><a href="/register">Register</a></li>
-		<!-- <li><a href="/logout">Logout</a></li>
-		<li><a href="/post">Post</a></li> -->
+		<% } %>
+		<!-- <li><a href="/post">Post</a></li> -->
 	</ul>
 </nav>

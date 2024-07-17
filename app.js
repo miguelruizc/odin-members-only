@@ -55,7 +55,11 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/login', (req, res) => {
-	res.status(200).render('login', { title: 'Log In', errors: [] });
+	res.status(200).render('login', {
+		title: 'Log In',
+		user: req.user,
+		errors: [],
+	});
 });
 app.post(
 	'/login',
@@ -65,7 +69,11 @@ app.post(
 	})
 );
 app.get('/register', (req, res) => {
-	res.status(200).render('register', { title: 'Register', errors: [] });
+	res.status(200).render('register', {
+		title: 'Register',
+		user: req.user,
+		errors: [],
+	});
 });
 app.post('/register', async (req, res) => {
 	let errors = [];
@@ -74,7 +82,11 @@ app.post('/register', async (req, res) => {
 	const exists = await User.find({ username: username });
 	if (exists.length > 0) {
 		errors.push('Username already exists');
-		return res.render('register', { title: 'Register', errors });
+		return res.render('register', {
+			title: 'Register',
+			user: req.user,
+			errors,
+		});
 	}
 
 	try {
@@ -99,14 +111,18 @@ app.post('/register', async (req, res) => {
 	}
 });
 app.get('/post', (req, res, next) => {
-	res.status(200).render('post', { title: 'Log In' });
+	res.status(200).render('post', { title: 'Log In', user: req.user });
 });
 app.get('/logout', (req, res) => {
 	res.redirect('/');
 });
 app.get('/', async (req, res) => {
 	const posts = await Post.find({});
-	res.status(200).render('index', { title: 'Only Members', posts });
+	res.status(200).render('index', {
+		title: 'Only Members',
+		posts,
+		user: req.user,
+	});
 });
 
 mongoose
