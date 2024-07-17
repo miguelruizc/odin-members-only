@@ -10,6 +10,18 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
+app.get('/login', (req, res, next) => {
+	res.status(200).render('login', { title: 'Log In' });
+});
+app.get('/signup', (req, res, next) => {
+	res.status(200).render('signup', { title: 'Sign Up' });
+});
+app.get('/post', (req, res, next) => {
+	res.status(200).render('post', { title: 'Log In' });
+});
+app.get('/logout', (req, res, next) => {
+	res.redirect('/');
+});
 app.get('/', (req, res, next) => {
 	res.status(200).render('index', { title: 'Only Members' });
 });
