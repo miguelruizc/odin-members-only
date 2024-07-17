@@ -4,35 +4,50 @@ const mongoose = require('mongoose');
 const Post = require('./models/Post');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
-// const passport = require('passport');
-// const session = require('express-session');
-// const LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
 
 const port = process.env.PORT || 3000;
 
 const app = express();
 
-// // Middleware for passport
+// Middleware for passport
 app.use(express.urlencoded({ extended: true }));
-// app.use(session({ secret: process.env.SECRET }));
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(
+	session({
+		secret: process.env.SECRET,
+		resave: false,
+		saveUninitialized: false,
+	})
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-// // Passport configuration
-// passport.use(
-// 	newLocalStrategy((username, password, done) => {
-// 		const user = users.find(
-// 			(u) => u.username === username && u.password === password
-// 		);
-// 		if (!user) return done(null, false, { message: 'Invalid credentials' });
-// 		return done(null, user);
-// 	})
-// );
-// passport.serializeUser((user, done) => done(null, user.id));
-// passport.deserializeUser((id, done) => {
-// 	const user = users.find((u) => u.id === id);
-// 	done(null, user);
-// });
+// Passport configuration
+passport.use(
+	new LocalStrategy(async (username, password, done) => {
+		try {
+			const user = await User.findOne({ username });
+			if (!user)
+				return done(null, false, { message: 'Invalid username' });
+
+			const isValid = await bcrypt.compare(password, user.password);
+			if (!isValid)
+				return done(null, false, { message: 'Invalid password' });
+
+			return done(null, user);
+		} catch (error) {
+			return done(error);
+		}
+	})
+);
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser((id, done) => {
+	User.findById(id)
+		.then((user) => done(null, user))
+		.catch((err) => done(err, null));
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -42,32 +57,13 @@ app.use(express.static('public'));
 app.get('/login', (req, res) => {
 	res.status(200).render('login', { title: 'Log In', errors: [] });
 });
-app.post('/login', async (req, res) => {
-	let errors = [];
-
-	const username = req.body.username;
-	const password = req.body.password;
-
-	const user = await User.findOne({ username });
-
-	if (!user) {
-		errors.push('Username not found');
-		return res.render('login', { title: 'Log in', errors });
-	}
-
-	console.log('plain pass: ', password);
-	console.log('hashed pass: ', user.password);
-
-	const isCorrect = await bcrypt.compare(password, user.password);
-	if (!isCorrect) {
-		errors.push('Incorrect password');
-		return res.render('login', { title: 'Log in', errors });
-	}
-
-	// AUTHENTICATION GUCCI
-	console.log('Authenticated');
-	return res.redirect('/');
-});
+app.post(
+	'/login',
+	passport.authenticate('local', {
+		successRedirect: '/',
+		failureRedirect: '/login',
+	})
+);
 app.get('/register', (req, res) => {
 	res.status(200).render('register', { title: 'Register', errors: [] });
 });
@@ -108,6 +104,16 @@ app.get('/post', (req, res, next) => {
 app.get('/logout', (req, res) => {
 	res.redirect('/');
 });
+app.get(
+	'/private',
+	(req, res, next) => {
+		if (req.isAuthenticated()) return next();
+		res.redirect('/login');
+	},
+	(req, res) => {
+		res.send('Welcome to the private area for authenticated users');
+	}
+);
 app.get('/', async (req, res) => {
 	const posts = await Post.find({});
 	res.status(200).render('index', { title: 'Only Members', posts });
