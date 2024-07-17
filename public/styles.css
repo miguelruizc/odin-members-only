@@ -5,9 +5,23 @@
 }
 
 nav {
-	background-color: rgb(255, 205, 145);
+	background-color: rgb(54, 74, 255);
+	display: flex;
+	color: white;
+	justify-content: space-between;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	gap: 20px;
+}
+
+nav a {
+	text-decoration: none;
+	color: white;
 }
 
 main {
-	background-color: rgb(107, 255, 144);
+	background-color: rgb(255, 255, 255);
 }
