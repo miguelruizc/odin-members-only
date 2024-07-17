@@ -1,0 +1,13 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+nav {
+	background-color: rgb(255, 205, 145);
+}
+
+main {
+	background-color: rgb(107, 255, 144);
+}

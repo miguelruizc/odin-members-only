@@ -1,16 +1,18 @@
 {
-  "name": "odin-members-only",
-  "version": "1.0.0",
-  "description": "Members Only application for The Odin Project",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.19.2",
-    "mongoose": "^8.5.1"
-  }
+	"name": "odin-members-only",
+	"version": "1.0.0",
+	"description": "Members Only application for The Odin Project",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node --env-file=.env app.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"ejs": "^3.1.10",
+		"express": "^4.19.2",
+		"mongoose": "^8.5.1"
+	}
 }
