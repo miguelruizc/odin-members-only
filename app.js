@@ -104,16 +104,6 @@ app.get('/post', (req, res, next) => {
 app.get('/logout', (req, res) => {
 	res.redirect('/');
 });
-app.get(
-	'/private',
-	(req, res, next) => {
-		if (req.isAuthenticated()) return next();
-		res.redirect('/login');
-	},
-	(req, res) => {
-		res.send('Welcome to the private area for authenticated users');
-	}
-);
 app.get('/', async (req, res) => {
 	const posts = await Post.find({});
 	res.status(200).render('index', { title: 'Only Members', posts });
