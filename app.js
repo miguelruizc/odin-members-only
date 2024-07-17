@@ -114,7 +114,10 @@ app.get('/post', (req, res, next) => {
 	res.status(200).render('post', { title: 'Log In', user: req.user });
 });
 app.get('/logout', (req, res) => {
-	res.redirect('/');
+	req.logout((err) => {
+		if (err) return next(err);
+		res.redirect('/');
+	});
 });
 app.get('/', async (req, res) => {
 	const posts = await Post.find({});
