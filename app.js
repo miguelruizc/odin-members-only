@@ -40,7 +40,33 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/login', (req, res) => {
-	res.status(200).render('login', { title: 'Log In' });
+	res.status(200).render('login', { title: 'Log In', errors: [] });
+});
+app.post('/login', async (req, res) => {
+	let errors = [];
+
+	const username = req.body.username;
+	const password = req.body.password;
+
+	const user = await User.findOne({ username });
+
+	if (!user) {
+		errors.push('Username not found');
+		return res.render('login', { title: 'Log in', errors });
+	}
+
+	console.log('plain pass: ', password);
+	console.log('hashed pass: ', user.password);
+
+	const isCorrect = await bcrypt.compare(password, user.password);
+	if (!isCorrect) {
+		errors.push('Incorrect password');
+		return res.render('login', { title: 'Log in', errors });
+	}
+
+	// AUTHENTICATION GUCCI
+	console.log('Authenticated');
+	return res.redirect('/');
 });
 app.get('/register', (req, res) => {
 	res.status(200).render('register', { title: 'Register', errors: [] });
