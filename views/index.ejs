@@ -4,9 +4,17 @@
 	<body>
 		<%- include('partials/nav') %>
 		<main>
-			<h1>Welcome to OnlyMembers</h1>
-			<h2>Messages</h2>
-			<p>Here go the list of messages</p>
+			<h1>Message board</h1>
+			<% if(posts.length === 0) {%>
+			<p>No posts...</p>
+			<% } else { %> <% posts.forEach((post) => {%>
+			<div class="postCard">
+				<h2><%= post.title %></h2>
+				<p><%= post.body %></p>
+				<!-- TODO: Show/hide author based on membership -->
+				<p><%= post.author %></p>
+			</div>
+			<% }); %> <% } %>
 		</main>
 	</body>
 </html>
