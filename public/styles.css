@@ -25,3 +25,15 @@ nav a {
 main {
 	background-color: rgb(255, 255, 255);
 } */
+
+#membership {
+	position: relative;
+}
+
+#membership:hover::before {
+	background-color: black;
+	color: white;
+	position: absolute;
+	z-index: 1;
+	content: attr(info);
+}

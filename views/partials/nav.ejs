@@ -3,7 +3,12 @@
 	<ul>
 		<% if(user) { %>
 
-		<li>(<%= user.username %>)</li>
+		<li>
+			(<%= user.username %>,
+			<span id="membership" info="<%= user.membershipInfo %>">
+				<%= user.membership %> </span
+			>)
+		</li>
 		<li><a href="/logout">Logout</a></li>
 
 		<% if(user.membership === 'non-member') { %>
