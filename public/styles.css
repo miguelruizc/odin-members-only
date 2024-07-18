@@ -9,6 +9,12 @@
 	font-style: normal;
 }
 
+body {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
 nav {
 	background-color: rgb(255, 101, 34);
 	display: flex;
@@ -31,12 +37,13 @@ nav a {
 }
 
 main {
+	flex: 1;
 	background-color: rgb(255, 255, 255);
 	color: #151515;
 	padding: 16px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: start;
 	align-items: center;
 	gap: 16px;
 }
@@ -142,4 +149,31 @@ hr {
 
 .delete {
 	text-decoration: none;
+}
+
+footer {
+	background-color: rgb(255, 101, 34);
+	color: white;
+	text-align: center;
+	padding: 16px;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+footer img {
+	width: 1rem;
+}
+
+@media screen and (max-width: 450px) {
+	nav h2 a {
+		display: none;
+	}
+
+	nav {
+		justify-content: center;
+	}
+
+	footer {
+		display: flex;
+	}
 }
