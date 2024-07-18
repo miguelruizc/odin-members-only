@@ -30,5 +30,10 @@
 			</div>
 			<% } %> %> <% } %>
 		</main>
+		<script defer>
+			<% if (user && user.membership === 'admin') { %>
+				alert("You have found the admin account...\nYou feel powerful and unstopable...");
+			<% } %>
+		</script>
 	</body>
 </html>
