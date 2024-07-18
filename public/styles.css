@@ -1,20 +1,28 @@
-/* * {
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'Merriweather', serif;
+	font-weight: 500;
+	font-style: normal;
 }
 
 nav {
-	background-color: rgb(54, 74, 255);
+	background-color: rgb(255, 101, 34);
 	display: flex;
 	color: white;
 	justify-content: space-between;
+	align-items: center;
+	padding: 16px;
 }
 
 nav ul {
 	list-style: none;
 	display: flex;
-	gap: 20px;
+	gap: 32px;
+	align-items: center;
 }
 
 nav a {
@@ -24,7 +32,11 @@ nav a {
 
 main {
 	background-color: rgb(255, 255, 255);
-} */
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
 
 #membership {
 	position: relative;
@@ -36,4 +48,23 @@ main {
 	position: absolute;
 	z-index: 1;
 	content: attr(info);
+}
+
+.icon {
+	width: 1rem;
+}
+
+#membership {
+	font-size: 0.8rem;
+}
+
+#username {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	order: 2;
+}
+
+#logout {
+	order: 1;
 }
