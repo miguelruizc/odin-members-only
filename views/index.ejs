@@ -5,20 +5,22 @@
 		<%- include('partials/nav', {user}) %>
 		<main>
 			<h1>Message board</h1>
-			<div style="outline: 1px solid rgb(109, 83, 255)">
-				<p>users can see messages</p>
-				<p>members can post messages</p>
-			</div>
-			<% if(posts.length === 0) {%>
+			<% if(!user) { %>
+			<p>(Login to see messages)</p>
+			<%} %> <% if(user && user.membership === 'non-member') { %>
+			<p>(Become a member to post messages)</p>
+			<%} %> <% if(user) { %> <% if(posts.length === 0) {%>
 			<p>No posts...</p>
 			<% } else { %> <% posts.forEach((post) => {%>
 			<div class="postCard">
 				<h2><%= post.title %></h2>
 				<p>Message: <%= post.body %></p>
-				<!-- TODO: Show/hide author based on membership -->
 				<p>Author: <%= post.author %></p>
+				<% if(user && user.membership === 'admin') {%>
+				<a href="/delete/<%= post._id %>">Delete</a>
+				<% } %>
 			</div>
-			<% }); %> <% } %>
+			<% }); %> <% } %> %> <% } %>
 		</main>
 	</body>
 </html>

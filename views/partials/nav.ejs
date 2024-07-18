@@ -14,7 +14,8 @@
 		<% if(user.membership === 'non-member') { %>
 		<li><a href="/upgrade">Become a member</a></li>
 
-		<% } else if(user.membership === 'member') { %>
+		<% } else if(user.membership === 'member' || user.membership ===
+		'admin') { %>
 		<li><a href="/post">Post</a></li>
 
 		<%}} else { %>

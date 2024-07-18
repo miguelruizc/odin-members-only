@@ -140,7 +140,13 @@ app.post('/post', async (req, res, next) => {
 	} else res.redirect('/login');
 });
 app.get('/upgrade', (req, res) => {
-	if (req.isAuthenticated()) {
+	if (req.isAuthenticated() && req.user.membership === 'non-member') {
+		res.status(200).render('upgrade', {
+			title: 'Become a member',
+			user: req.user,
+			errors: [],
+		});
+	} else if (req.isAuthenticated() && req.user.membership === 'member') {
 		res.status(200).render('upgrade', {
 			title: 'Become a member',
 			user: req.user,
@@ -183,6 +189,21 @@ app.get('/', async (req, res) => {
 		posts,
 		user: req.user,
 	});
+});
+app.get('/delete/:id', async (req, res) => {
+	if (req.isAuthenticated() && req.user.membership === 'admin') {
+		try {
+			const deleted = await Post.findByIdAndDelete(req.params.id);
+			console.log('Deleted: ', deleted);
+			res.redirect('/');
+		} catch (error) {
+			console.log(error);
+			res.redirect('/');
+		}
+	} else res.redirect('/');
+});
+app.get('*', (req, res) => {
+	res.send('404, not found');
 });
 
 mongoose

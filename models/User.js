@@ -17,7 +17,7 @@ userSchema.virtual('membershipInfo').get(function () {
 		case 'member':
 			return 'Members are awesome and can post messages';
 		case 'admin':
-			return 'Admin';
+			return 'Admins powerful and strong, and handsome';
 		default:
 			return 'Invalid membership type';
 	}
