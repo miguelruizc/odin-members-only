@@ -111,7 +111,26 @@ app.post('/register', async (req, res) => {
 	}
 });
 app.get('/post', (req, res, next) => {
-	res.status(200).render('post', { title: 'Log In', user: req.user });
+	if (req.isAuthenticated()) {
+		res.status(200).render('post', { title: 'Log In', user: req.user });
+	} else res.redirect('login');
+});
+app.post('/post', async (req, res, next) => {
+	if (req.isAuthenticated()) {
+		const newPost = new Post({
+			title: req.body.title,
+			body: req.body.body,
+			author: req.user.username,
+		});
+		try {
+			const savedPost = await newPost.save();
+			console.log('Saved: ', savedPost);
+		} catch (error) {
+			console.log(error);
+		}
+
+		res.redirect('/');
+	} else res.redirect('/login');
 });
 app.get('/logout', (req, res) => {
 	req.logout((err) => {
@@ -120,7 +139,7 @@ app.get('/logout', (req, res) => {
 	});
 });
 app.get('/', async (req, res) => {
-	const posts = await Post.find({});
+	const posts = await Post.find({}).sort({ updatedAt: -1 });
 	res.status(200).render('index', {
 		title: 'Only Members',
 		posts,

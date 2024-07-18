@@ -11,9 +11,9 @@
 			<% } else { %> <% posts.forEach((post) => {%>
 			<div class="postCard">
 				<h2><%= post.title %></h2>
-				<p><%= post.body %></p>
+				<p>Message: <%= post.body %></p>
 				<!-- TODO: Show/hide author based on membership -->
-				<p><%= post.author %></p>
+				<p>Author: <%= post.author %></p>
 			</div>
 			<% }); %> <% } %>
 		</main>
