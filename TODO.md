@@ -18,8 +18,8 @@
 
  ~~-delete/:id route accesible by admins~~
 
-Style
+~~Style~~
 
-Prevent empty messages from going through
+~~Prevent empty messages from going through~~
 
 Deploy
