@@ -13,16 +13,22 @@
 			<p>(Become a member to post messages)</p>
 			<%} %> <% if(user) { %> <% if(posts.length === 0) {%>
 			<p>No posts...</p>
-			<% } else { %> <% posts.forEach((post) => {%>
-			<div class="postCard">
-				<h2><%= post.title %></h2>
-				<p>Message: <%= post.body %></p>
-				<p>Author: <%= post.author %></p>
-				<% if(user && user.membership === 'admin') {%>
-				<a href="/delete/<%= post._id %>">Delete</a>
-				<% } %>
+
+			<% } else { %>
+			<div class="cards">
+				<% posts.forEach((post) => {%>
+				<div class="postCard">
+					<h2><%= post.title %></h2>
+					<p><%= post.body %></p>
+					<hr />
+					<p>@<%= post.author %></p>
+					<% if(user && user.membership === 'admin') {%>
+					<a href="/delete/<%= post._id %>">Delete</a>
+					<% } %>
+				</div>
+				<% }); %>
 			</div>
-			<% }); %> <% } %> %> <% } %>
+			<% } %> %> <% } %>
 		</main>
 	</body>
 </html>
