@@ -23,7 +23,7 @@
 					<hr />
 					<p>@<%= post.author %></p>
 					<% if(user && user.membership === 'admin') {%>
-					<a href="/delete/<%= post._id %>">Delete</a>
+					<a href="/delete/<%= post._id %>" class="delete">Delete</a>
 					<% } %>
 				</div>
 				<% }); %>

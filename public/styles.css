@@ -32,6 +32,7 @@ nav a {
 
 main {
 	background-color: rgb(255, 255, 255);
+	color: #151515;
 	padding: 16px;
 	display: flex;
 	flex-direction: column;
@@ -109,10 +110,20 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	margin-top: 16px;
 }
+
 .postCard {
 	padding: 16px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	max-width: 450px;
+	transition: transform 0.1s ease-in-out;
+}
+
+.postCard:hover {
+	transform: scale(1.1);
+	background-color: rgb(255, 101, 34);
+	color: white;
 }
 
 hr {
@@ -122,4 +133,8 @@ hr {
 	opacity: 0.1;
 	margin: 8px;
 	margin-top: 16px;
+}
+
+.delete {
+	text-decoration: none;
 }
