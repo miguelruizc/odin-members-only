@@ -64,9 +64,14 @@ form div {
 }
 
 #membership:hover::before {
-	background-color: black;
-	color: white;
+	background-color: white;
+	border: 2px solid black;
+	color: black;
 	position: absolute;
+	width: 150px;
+	padding: 8px;
+	top: 1.5rem;
+	right: 0;
 	z-index: 1;
 	content: attr(info);
 }
