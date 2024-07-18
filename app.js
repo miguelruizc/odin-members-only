@@ -76,7 +76,7 @@ app.get('/register', (req, res) => {
 		errors: [],
 	});
 });
-app.post('/register', async (req, res) => {
+app.post('/register', async (req, res, next) => {
 	let errors = [];
 	const username = req.body.username;
 	let password = req.body.password;
@@ -101,7 +101,13 @@ app.post('/register', async (req, res) => {
 		try {
 			const savedUser = await newUser.save();
 			console.log('New user saved: ', savedUser);
-			res.redirect('/login');
+
+			passport.authenticate('local', {
+				successRedirect: '/',
+				failureRedirect: '/login',
+			})(req, res, next);
+
+			// res.redirect('/login');
 		} catch (error) {
 			console.log(error);
 			res.redirect('/register');
