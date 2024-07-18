@@ -55,17 +55,18 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/login', (req, res) => {
+	const error = req.query.error;
 	res.status(200).render('login', {
 		title: 'Log In',
 		user: req.user,
-		errors: [],
+		errors: error ? [error] : [],
 	});
 });
 app.post(
 	'/login',
 	passport.authenticate('local', {
 		successRedirect: '/',
-		failureRedirect: '/login',
+		failureRedirect: '/login?error=Invalid%20credentials',
 	})
 );
 app.get('/register', (req, res) => {
