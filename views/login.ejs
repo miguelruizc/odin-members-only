@@ -6,21 +6,28 @@
 		<main>
 			<h1>Log In</h1>
 			<form action="/login" method="POST">
-				<label for="username">Username: </label>
-				<input type="text" name="username" required />
-				<label for="password">Password</label>
-				<input type="password" name="password" required />
+				<div>
+					<label for="username">Username: </label>
+					<input type="text" name="username" required />
+				</div>
+				<div>
+					<label for="password">Password</label>
+					<input type="password" name="password" required />
+				</div>
 
 				<button type="submit">Log in</button>
 			</form>
 			<% if(!errors || errors.length > 0) {%>
 			<ul>
 				<% errors.forEach(error => { %>
-				<li><%= error %></li>
+				<li class="error"><%= error %></li>
 				<% }) %>
 			</ul>
 			<% } %>
-			<p>Don't have an account? <a href="/register">Register</a></p>
+			<div>
+				<p>Don't have an account?</p>
+				<a href="/register">Register</a>
+			</div>
 		</main>
 	</body>
 </html>

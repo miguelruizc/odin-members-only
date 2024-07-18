@@ -11,15 +11,17 @@
 			<% } %> <% if(user.membership === 'non-member') { %>
 			<p>To become a member, enter the supersecret password</p>
 			<form action="/upgrade" method="POST">
-				<label for="password"></label>
-				<input type="password" name="password" required />
+				<div>
+					<label for="password"></label>
+					<input type="password" name="password" required />
+				</div>
 				<button type="submit">Submit</button>
 			</form>
 
 			<% if(errors.length > 0) { %>
 			<ul>
 				<% errors.forEach(error => { %>
-				<li><%= error %></li>
+				<li class="error"><%= error %></li>
 				<% })%>
 			</ul>
 			<% } %> <% } %>

@@ -4,9 +4,11 @@
 	<body>
 		<%- include('partials/nav', {user}) %>
 		<main>
-			<h1>Message board</h1>
-			<% if(!user) { %>
-			<p>(Login to see messages)</p>
+			<div>
+				<h1>Message board</h1>
+				<% if(!user) { %>
+				<p>(Login to see messages)</p>
+			</div>
 			<%} %> <% if(user && user.membership === 'non-member') { %>
 			<p>(Become a member to post messages)</p>
 			<%} %> <% if(user) { %> <% if(posts.length === 0) {%>

@@ -36,6 +36,25 @@ main {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
+	gap: 16px;
+}
+
+main > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+form div {
+	display: flex;
+	flex-direction: column;
 }
 
 #membership {
@@ -67,4 +86,13 @@ main {
 
 #logout {
 	order: 1;
+}
+
+.error {
+	color: red;
+	list-style: none;
+}
+
+textarea {
+	resize: vertical;
 }
