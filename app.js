@@ -132,6 +132,37 @@ app.post('/post', async (req, res, next) => {
 		res.redirect('/');
 	} else res.redirect('/login');
 });
+app.get('/upgrade', (req, res) => {
+	if (req.isAuthenticated()) {
+		res.status(200).render('upgrade', {
+			title: 'Become a member',
+			user: req.user,
+			errors: [],
+		});
+	} else res.redirect('login');
+});
+app.post('/upgrade', async (req, res) => {
+	const password = req.body.password;
+	console.log(password);
+
+	if (password === 'supersecret' && req.isAuthenticated()) {
+		try {
+			const updated = await User.findByIdAndUpdate(req.user.id, {
+				membership: 'member',
+			});
+			console.log('User updated: ', updated);
+			res.redirect('/');
+		} catch (error) {
+			consol.log(error);
+			res.redirect('/');
+		}
+	} else
+		res.render('upgrade', {
+			title: 'Become a member',
+			user: req.user,
+			errors: ['Incorrect password'],
+		});
+});
 app.get('/logout', (req, res) => {
 	req.logout((err) => {
 		if (err) return next(err);
