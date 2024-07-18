@@ -17,6 +17,13 @@
 
 				<button type="submit">Post message</button>
 			</form>
+			<% if(!errors || errors.length > 0) {%>
+			<ul>
+				<% errors.forEach(error => { %>
+				<li class="error"><%= error %></li>
+				<% }) %>
+			</ul>
+			<% } %>
 		</main>
 		<%- include('partials/footer') %>
 	</body>

@@ -119,14 +119,27 @@ app.post('/register', async (req, res, next) => {
 });
 app.get('/post', (req, res, next) => {
 	if (req.isAuthenticated()) {
-		res.status(200).render('post', { title: 'Log In', user: req.user });
+		const errors = req.query.error ? [req.query.error] : [];
+		res.status(200).render('post', {
+			title: 'Log In',
+			user: req.user,
+			errors,
+		});
 	} else res.redirect('login');
 });
 app.post('/post', async (req, res, next) => {
 	if (req.isAuthenticated()) {
+		const title = req.body.title.trim();
+		const body = req.body.body.trim();
+		if (!title || !body)
+			return res.redirect(
+				'/post?error= ' +
+					encodeURIComponent('Title and body are required')
+			);
+
 		const newPost = new Post({
-			title: req.body.title,
-			body: req.body.body,
+			title,
+			body,
 			author: req.user.username,
 		});
 		try {
